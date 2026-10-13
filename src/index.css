@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+    --canvas: 244 246 251;
+    --surface: 255 255 255;
+    --surface-2: 241 244 249;
+    --line: 226 232 240;
+    --ink: 15 23 42;
+    --ink-muted: 71 85 105;
+    --ink-subtle: 100 116 139;
+    --grid: 226 232 240;
+  }
+
+  .dark {
+    color-scheme: dark;
+    --canvas: 15 23 42; /* #0F172A */
+    --surface: 23 32 51;
+    --surface-2: 30 41 64;
+    --line: 45 58 82;
+    --ink: 241 245 249;
+    --ink-muted: 176 188 206;
+    --ink-subtle: 140 154 178;
+    --grid: 40 52 76;
+  }
+
+  html {
+    @apply bg-canvas font-sans text-ink antialiased;
+    font-feature-settings: 'cv11', 'ss01';
+  }
+
+  body {
+    @apply min-h-screen bg-canvas;
+  }
+
+  /* Cifras alineadas en tablas y KPIs */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-brand-violet ring-offset-2 ring-offset-canvas;
+  }
+}
+
+/* Transición de colores solo mientras se cambia de tema (la clase se quita después). */
+.theme-transition,
+.theme-transition *,
+.theme-transition *::before,
+.theme-transition *::after {
+  transition:
+    background-color 350ms ease,
+    border-color 350ms ease,
+    color 350ms ease,
+    fill 350ms ease,
+    stroke 350ms ease !important;
+}
+
+/* Recharts: quitar el contorno de foco por defecto en superficies SVG */
+.recharts-wrapper svg:focus,
+.recharts-surface:focus {
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
